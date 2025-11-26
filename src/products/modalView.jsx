@@ -16,9 +16,12 @@ const style = {
   p: 3,
 };
 
-export default function ModalSeeProduct({ open, setOpen, product }) {
+export default function ModalSeeProduct({ open, setOpen, product, categories }) {
+  let category = ''
   const handleClose = () => setOpen(false);
-
+  if (product && categories){
+    category = categories?.find(cat => cat.id === product.category_id)
+  }
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style} className="relative">
@@ -34,7 +37,7 @@ export default function ModalSeeProduct({ open, setOpen, product }) {
               <p className="text-gray-600"> <strong>Title:</strong> {product.title}</p>
               <p className="text-gray-600"> <strong>ID:</strong> {product.id}</p>
               <p className="text-gray-600"> <strong>Price:</strong> ${product.price}</p>
-              <p className="text-gray-600"> <strong>Category:</strong> {product.category}</p>
+              <p className="text-gray-600"> <strong>Category:</strong> {category?.name || "N/A" }</p>
               <p className="text-gray-600 col-span-2">
                 <strong>Description:</strong> {product.description}
               </p>
